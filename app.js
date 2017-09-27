@@ -27,30 +27,64 @@ Store.prototype.cookiesPerDayCalculation = function(){
   };
   return this.cookiesDayTotal;
 };
-// Store.prototype.customersPerHourCalculation = function(maxCust, minCust) {
-//   for (var i = 0; i < hours.length; i++){
-//     var x = Math.floor((Math.random() * (this.maxCust - this.minCust + 1) + this.minCust) * this.cookiesPerCustomer);
-//     console.log('x is:', x);
-//     this.cookiesPerHour.push(x);
-//   };
-// };
-var pikeStore = new Store('Pike', 23, 65, 6.3);
-var seaTacStore = new Store('seaTac', 3, 24, 1.2);
-var centerStore = new Store('center', 11, 38, 3.7);
-var hillStore = new Store('hill', 20, 38, 2.3);
-var alkiStore = new Store('Alki', 2, 16, 4.6);
-pikeStore.customersPerHourCalculation();
-pikeStore.cookiesPerDayCalculation();
-seaTacStore.customersPerHourCalculation();
-seaTacStore.cookiesPerDayCalculation();
-centerStore.customersPerHourCalculation();
-centerStore.cookiesPerDayCalculation();
-hillStore.customersPerHourCalculation();
-hillStore.cookiesPerDayCalculation();
-alkiStore.customersPerHourCalculation();
-alkiStore.cookiesPerDayCalculation();
-// console.table(storeList);
-console.table(storeList);
+
+var storeArray = [];
+storeArray.push(new Store('Pike', 23, 65, 6.3));
+storeArray.push(new Store('seaTac', 3, 24, 1.2));
+storeArray.push(new Store('center', 11, 38, 3.7));
+storeArray.push(new Store('hill', 20, 38, 2.3));
+storeArray.push(new Store('Alki', 2, 16, 4.6));
+
+for (var i in storeArray){
+  storeArray[i].customersPerHourCalculation();
+  storeArray[i].cookiesPerDayCalculation();
+}
+
+console.table(storeArray);
+
+var header = function(){
+//create the first table row based on values in hours array
+  var trElHours = document.createElement('tr');
+  var tableHead = document.getElementById('salesTable');
+  tableHead.appendChild(trElHours);
+  var thElHours = document.createElement('th');
+  thElHours.textContent = '';
+  trElHours.appendChild(thElHours);
+  for (var i = 0; i <= hours.length; i++){
+    thElHours = document.createElement('th');
+    thElHours.textContent = hours[i];
+    trElHours.appendChild(thElHours);
+  };
+  tableHead.appendChild(thElHours);
+};
+
+var mainRows = function(){
+  for (var i = 0; i < storeArray.length; i++){
+    //first create a new table row
+    var trEl = document.createElement('tr');
+    var tableHead = document.getElementById('salesTable');
+    trEl.textContent = '';
+    tableHead.appendChild(trEl);
+    //then create a new <th> from the array
+    var thEl = document.createElement('th');
+    thEl.textContent = storeArray[i].nameStore;
+    tableHead.appendChild(thEl);
+    //then iterate through the nested array of values and place in table
+    for (var j = 0; j < storeArray[i].cookiesPerHour.length; j++){
+      var tdEl = document.createElement('td');
+      tdEl.textContent = storeArray[i].cookiesPerHour[j];
+      tableHead.appendChild(tdEl);
+    }
+  }
+};
+header();
+mainRows();
+// header();
+//   var liElTotal = document.createElement('li');
+//   liElTotal.textContent = 'Daily total: ' + this.cookiesDayTotal;
+//   var pikeTotals = document.getElementById('pike');
+//   pikeTotals.appendChild(liElTotal);
+// }
 // Store.prototype.customersPerHourCalculation(10, 5);
 // console.table(storeList);
 // var pike = {
@@ -103,13 +137,13 @@ console.table(storeList);
 //     }
 //     return this.cookiesDayTotal;
 //   },
-//   render: function(){
-//     for (var i = 0; i < hours.length; i++){
-//       var liElHours = document.createElement('li');
-//       liElHours.textContent = hours[i] + ':' + this.cookiesPerHour[i];
-//       var seaTacUl = document.getElementById('seaTac');
-//       seaTacUl.appendChild(liElHours);
-//     };
+// render: function(){
+//   for (var i = 0; i < hours.length; i++){
+//     var liElHours = document.createElement('li');
+//     liElHours.textContent = hours[i] + ':' + this.cookiesPerHour[i];
+//     var seaTacUl = document.getElementById('seaTac');
+//     seaTacUl.appendChild(liElHours);
+//   };
 //     var liElTotal = document.createElement('li');
 //     liElTotal.textContent = 'Daily total: ' + this.cookiesDayTotal;
 //     var seaTacTotals = document.getElementById('seaTac');
