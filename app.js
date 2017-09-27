@@ -1,8 +1,15 @@
 'use strict';
 
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-//object literal to build sales projection to sales.html
+
 var storeList = [];
+
+var storeArray = [];
+storeArray.push(new Store('Pike', 23, 65, 6.3));
+storeArray.push(new Store('seaTac', 3, 24, 1.2));
+storeArray.push(new Store('center', 11, 38, 3.7));
+storeArray.push(new Store('hill', 20, 38, 2.3));
+storeArray.push(new Store('Alki', 2, 16, 4.6));
 
 function Store(nameStore, minCust, maxCust, cookiesPerCustomer){
   this.nameStore = nameStore;
@@ -28,34 +35,21 @@ Store.prototype.cookiesPerDayCalculation = function(){
   return this.cookiesDayTotal;
 };
 
-var storeArray = [];
-storeArray.push(new Store('Pike', 23, 65, 6.3));
-storeArray.push(new Store('seaTac', 3, 24, 1.2));
-storeArray.push(new Store('center', 11, 38, 3.7));
-storeArray.push(new Store('hill', 20, 38, 2.3));
-storeArray.push(new Store('Alki', 2, 16, 4.6));
-
-for (var i in storeArray){
-  storeArray[i].customersPerHourCalculation();
-  storeArray[i].cookiesPerDayCalculation();
-}
-
-console.table(storeArray);
-
 var header = function(){
 //create the first table row based on values in hours array
   var trElHours = document.createElement('tr');
   var tableHead = document.getElementById('salesTable');
   tableHead.appendChild(trElHours);
   var thElHours = document.createElement('th');
-  thElHours.textContent = '';
+  thElHours.textContent = null;
   trElHours.appendChild(thElHours);
   for (var i = 0; i <= hours.length; i++){
     thElHours = document.createElement('th');
     thElHours.textContent = hours[i];
     trElHours.appendChild(thElHours);
   };
-  tableHead.appendChild(thElHours);
+  thElHours.textContent = 'Daily Total';
+  trElHours.appendChild(thElHours);
 };
 
 var mainRows = function(){
@@ -70,13 +64,23 @@ var mainRows = function(){
     thEl.textContent = storeArray[i].nameStore;
     tableHead.appendChild(thEl);
     //then iterate through the nested array of values and place in table
-    for (var j = 0; j < storeArray[i].cookiesPerHour.length; j++){
+    for (var j = 0; j <= storeArray[i].cookiesPerHour.length; j++){
       var tdEl = document.createElement('td');
       tdEl.textContent = storeArray[i].cookiesPerHour[j];
       tableHead.appendChild(tdEl);
-    }
+    };
+    tdEl.textContent = storeArray[i].cookiesDayTotal;
+    tableHead.appendChild(tdEl);
   }
 };
+
+var calculations = function(){
+  for (var i in storeArray){
+    storeArray[i].customersPerHourCalculation();
+    storeArray[i].cookiesPerDayCalculation();
+  }
+};
+calculations();
 header();
 mainRows();
 // header();
