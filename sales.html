@@ -4,9 +4,30 @@
   <title>Sales projection (internal)</title>
 </head>
 <body>
+  <form id="storeForm">
+    <fieldset>
+      <legend>Enter new store data</legend>
+      <label for="location">Store name: </label>
+      <input name="location" type="text" />
+
+      <label for="minCust">Minimum customers: </label>
+      <input name="minCust" type="number" />
+
+      <label for="maxCust">Maximum customers: </label>
+      <input name="maxCust" type="number" />
+
+      <label for="cookiesPerCustomer">Sales per customer: </label>
+      <input name="cookiesPerCustomer" type="number" />
+
+      <button type="submit">Add store</button>
+    </fieldset>
+  </form>
+
+  <div id="outputTest"></div>
 <h2>Sales projections table</h2>
   <table border=1px id="salesTable">
-
+    <div id="test">
+    </div>
   </table>
   <script type="text/javascript" src="app.js">
   </script>
