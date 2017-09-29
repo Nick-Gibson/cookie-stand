@@ -77,6 +77,11 @@ var calculations = function(){
     storeArray[i].cookiesPerDayCalculation();
   }
 };
+
+// storeArray[0].customersPerHourCalculation();
+// storeArray[storeArray.length - 1].customersPerHourCalculation();
+// storeArray[0].cookiesPerDayCalculation();
+// storeArray[storeArray.length - 1].cookiesPerDayCalculation();
 calculations();
 header();
 mainRows();
@@ -94,12 +99,31 @@ function addNewLine(event) {
   // if (!event.target.location.value || !event.target.minCust.value || event.target.maxCust.value || event.target.cookiesPerCustomer.value) {
   //   return alert('Please enter a value for all fields');
   var newStoreName = event.target.location.value;
-  var newMinCust = event.target.minCust.value;
-  var newMaxCust = event.target.maxCust.value;
-  var newCookiesPerHour = event.target.cookiesPerCustomer.value;
+  var newMinCust = parseInt(event.target.minCust.value);
+  var newMaxCust = parseInt(event.target.maxCust.value);
+  var newCookiesPerHour = parseFloat(event.target.cookiesPerCustomer.value);
   storeArray.push(new Store(newStoreName, newMinCust, newMaxCust, newCookiesPerHour));
-  document.getElementById('salesTable').innerHTML = null;
+};
+var showNewLine = function(){
+  storeArray[(storeArray.length) - 1].customersPerHourCalculation();
+  storeArray[(storeArray.length) - 1].cookiesPerDayCalculation();
+  var trEl = document.createElement('tr');
+  var tableHead = document.getElementById('salesTable');
+  trEl.textContent = '';
+  tableHead.appendChild(trEl);
+  //then create a new <th> from the array
+  var thEl = document.createElement('th');
+  thEl.textContent = storeArray[(storeArray.length) - 1].nameStore;
+  tableHead.appendChild(thEl);
+  //then iterate through the nested array of values and place in table
+  for (var i = 0; i <= 15; i++){
+    var tdEl = document.createElement('td');
+    tdEl.textContent = storeArray[(storeArray.length) - 1].cookiesPerHour[i];
+    tableHead.appendChild(tdEl);
+  };
+  tdEl.textContent = storeArray[(storeArray.length) - 1].cookiesDayTotal;
+  tableHead.appendChild(tdEl);
 };
 storeForm.addEventListener('submit', addNewLine);
-storeForm.addEventListener('submit', calculations);
-storeForm.addEventListener('submit', mainRows);
+storeForm.addEventListener('submit', showNewLine);
+// storeForm.addEventListener('submit', mainRows);
