@@ -78,33 +78,21 @@ var calculations = function(){
   }
 };
 
-// storeArray[0].customersPerHourCalculation();
-// storeArray[storeArray.length - 1].customersPerHourCalculation();
-// storeArray[0].cookiesPerDayCalculation();
-// storeArray[storeArray.length - 1].cookiesPerDayCalculation();
 calculations();
 header();
 mainRows();
 
-//begin form testing; make vars global
-// var newStoreName;
-// var newMinCust;
-// var newMaxCust;
-// var newCookiesPerHour;
-// var locationOutput = document.getElementById('outputTest');
 var storeForm = document.getElementById('storeForm');
 function addNewLine(event) {
-  //don't reload page just yet
   event.preventDefault();
   // if (!event.target.location.value || !event.target.minCust.value || event.target.maxCust.value || event.target.cookiesPerCustomer.value) {
   //   return alert('Please enter a value for all fields');
+  // };
   var newStoreName = event.target.location.value;
   var newMinCust = parseInt(event.target.minCust.value);
   var newMaxCust = parseInt(event.target.maxCust.value);
   var newCookiesPerHour = parseFloat(event.target.cookiesPerCustomer.value);
   storeArray.push(new Store(newStoreName, newMinCust, newMaxCust, newCookiesPerHour));
-};
-var showNewLine = function(){
   storeArray[(storeArray.length) - 1].customersPerHourCalculation();
   storeArray[(storeArray.length) - 1].cookiesPerDayCalculation();
   var trEl = document.createElement('tr');
@@ -125,5 +113,3 @@ var showNewLine = function(){
   tableHead.appendChild(tdEl);
 };
 storeForm.addEventListener('submit', addNewLine);
-storeForm.addEventListener('submit', showNewLine);
-// storeForm.addEventListener('submit', mainRows);
