@@ -104,7 +104,7 @@ function addNewLine(event) {
   thEl.textContent = storeArray[(storeArray.length) - 1].nameStore;
   tableHead.appendChild(thEl);
   //then iterate through the nested array of values and place in table
-  for (var i in hours.length){
+  for (var i = 0; i <= 15; i++){
     var tdEl = document.createElement('td');
     tdEl.textContent = storeArray[(storeArray.length) - 1].cookiesPerHour[i];
     tableHead.appendChild(tdEl);
